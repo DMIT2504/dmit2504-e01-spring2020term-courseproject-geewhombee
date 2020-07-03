@@ -8,9 +8,11 @@ import androidx.room.RoomDatabase;
 
 @Database(entities = {People.class}, version = 1)
 public abstract class AppDatabase extends RoomDatabase {
+
     public abstract PeopleDao peopleDao();
 
     private static volatile AppDatabase appDatabase;
+
     static AppDatabase getDatabase(final Context context) {
         if (appDatabase == null) {
             synchronized (AppDatabase.class) {
