@@ -29,21 +29,27 @@ public class NewPeopleActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //insert the data
-
-                Intent resultIntent = new Intent();
-
-                if (mFirstNameEdittext.getText().toString().isEmpty()) {
-                    setResult(RESULT_CANCELED, resultIntent);
-                } else {
-                    String firstName = mFirstNameEdittext.getText().toString();
-                    String lastName = mLastNameEdittext.getText().toString();
-
-                    resultIntent.putExtra(PEOPLE_firstName, firstName);
-                    resultIntent.putExtra(PEOPLE_lastName, lastName);
-                    setResult(RESULT_OK, resultIntent);
-                }
-
+                String firstName = mFirstNameEdittext.getText().toString();
+                String lastName = mLastNameEdittext.getText().toString();
+                AppDatabase appDB = AppDatabase.getDatabase(getApplicationContext());
+                People person = new People(firstName,lastName);
+                appDB.peopleDao().insertAll(person);
                 finish();
+
+//                Intent resultIntent = new Intent();
+//
+//                if (mFirstNameEdittext.getText().toString().isEmpty()) {
+//                    setResult(RESULT_CANCELED, resultIntent);
+//                } else {
+//                    String firstName = mFirstNameEdittext.getText().toString();
+//                    String lastName = mLastNameEdittext.getText().toString();
+//
+//                    resultIntent.putExtra(PEOPLE_firstName, firstName);
+//                    resultIntent.putExtra(PEOPLE_lastName, lastName);
+//                    setResult(RESULT_OK, resultIntent);
+//                }
+//
+//                finish();
             }
         });
     }

@@ -6,7 +6,7 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
-@Database(entities = {People.class}, version = 1)
+@Database(entities = {People.class}, version = 2)
 public abstract class AppDatabase extends RoomDatabase {
 
     public abstract PeopleDao peopleDao();
@@ -19,6 +19,8 @@ public abstract class AppDatabase extends RoomDatabase {
                 if (appDatabase == null) {
                     appDatabase = Room.databaseBuilder(context.getApplicationContext(),
                             AppDatabase.class, "user_database")
+                            .allowMainThreadQueries()
+                            .fallbackToDestructiveMigration()
                             .build();
                 }
             }

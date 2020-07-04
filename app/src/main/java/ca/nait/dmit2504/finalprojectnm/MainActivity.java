@@ -6,15 +6,20 @@ import androidx.room.Room;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
+    private TextView mTextview;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        mTextview = findViewById(R.id.activity_main_textview);
         FloatingActionButton addNewFloatingButton = findViewById(R.id.floatingActionButton);
         addNewFloatingButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -23,11 +28,22 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(addNewIntent);
             }
         });
-        String test = "test";
-
-        AppDatabase db = Room.databaseBuilder(getApplicationContext(),
-                AppDatabase.class, "database-name").build();
 
 
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        AppDatabase appDB = AppDatabase.getDatabase(getApplicationContext());
+
+        List<People> peopleList = appDB.peopleDao().getAll();
+        String testString = "";
+        for (People test : peopleList) {
+            testString += test.getFullName() + "\n";
+
+        }
+        mTextview.setText(testString);
     }
 }
