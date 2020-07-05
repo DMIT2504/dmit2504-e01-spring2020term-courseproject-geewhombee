@@ -40,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mPeopleRecycler.setLayoutManager(linearLayoutManager);
         loadRecycler();
+        mPeopleRecycler.addOnItemTouchListener(new RecyclerView.SimpleOnItemTouchListener());
 
 
     }

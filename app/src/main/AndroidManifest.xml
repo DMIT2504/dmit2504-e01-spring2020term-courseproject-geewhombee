@@ -19,6 +19,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".NewPeopleActivity"></activity>
+        <activity android:name=".EditPeopleActivity"></activity>
     </application>
 
 </manifest>

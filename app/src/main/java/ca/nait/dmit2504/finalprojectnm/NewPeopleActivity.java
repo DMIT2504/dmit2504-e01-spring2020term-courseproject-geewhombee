@@ -11,8 +11,6 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class NewPeopleActivity extends AppCompatActivity {
-    public static final String PEOPLE_firstName = "people_firstName";
-    public static final String PEOPLE_lastName = "people_lastName";
     private EditText mFirstNameEdittext, mLastNameEdittext;
     private Button mSaveButton;
 

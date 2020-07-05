@@ -1,5 +1,6 @@
 package ca.nait.dmit2504.finalprojectnm;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,8 +25,15 @@ public class PeopleAdapter extends RecyclerView.Adapter<PeopleAdapter.PersonView
     @Override
     public PersonViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater infalter = LayoutInflater.from(parent.getContext());
-        View itemView = infalter.inflate(R.layout.list_item_people, parent, false);
+        final View itemView = infalter.inflate(R.layout.list_item_people, parent, false);
         PersonViewHolder teamsViewHolder = new PersonViewHolder(itemView);
+//possible on click listener
+        //        teamsViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//            }
+//        });
 
         return teamsViewHolder;
     }
@@ -35,6 +43,7 @@ public class PeopleAdapter extends RecyclerView.Adapter<PeopleAdapter.PersonView
         People currentTeam = mPeople.get(position);
         holder.personID.setText(currentTeam.getId()+ "");
         holder.personFullName.setText(currentTeam.getFullName());
+
 
     }
 
@@ -54,5 +63,8 @@ public class PeopleAdapter extends RecyclerView.Adapter<PeopleAdapter.PersonView
             personFullName = itemView.findViewById(R.id.list_item_people_fullname);
 
         }
+
+
     }
+
 }
