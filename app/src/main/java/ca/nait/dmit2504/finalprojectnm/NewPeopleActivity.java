@@ -6,6 +6,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -33,7 +34,9 @@ public class NewPeopleActivity extends AppCompatActivity {
                 String lastName = mLastNameEdittext.getText().toString();
                 AppDatabase appDB = AppDatabase.getDatabase(getApplicationContext());
                 People person = new People(firstName,lastName);
-                appDB.peopleDao().insertAll(person);
+                long test = appDB.peopleDao().singlePersonInsert(person);
+                Toast.makeText(getApplicationContext(),test + "",Toast.LENGTH_SHORT).show();
+
                 finish();
 
 //                Intent resultIntent = new Intent();

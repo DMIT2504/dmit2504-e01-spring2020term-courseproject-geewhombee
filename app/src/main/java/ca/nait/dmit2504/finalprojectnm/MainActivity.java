@@ -1,6 +1,8 @@
 package ca.nait.dmit2504.finalprojectnm;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Room;
 
 import android.content.Intent;
@@ -14,6 +16,9 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     private TextView mTextview;
+    private RecyclerView mPeopleRecycler;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +34,12 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        mPeopleRecycler = findViewById(R.id.activity_main_recyclerview);
+        //mPeopleRecycler.setHasFixedSize(true);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        mPeopleRecycler.setLayoutManager(linearLayoutManager);
+        loadRecycler();
 
 
     }
@@ -36,14 +47,16 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        loadRecycler();
+
+    }
+    private void loadRecycler() {
         AppDatabase appDB = AppDatabase.getDatabase(getApplicationContext());
-
         List<People> peopleList = appDB.peopleDao().getAll();
-        String testString = "";
-        for (People test : peopleList) {
-            testString += test.getFullName() + "\n";
 
-        }
-        mTextview.setText(testString);
+        PeopleAdapter peopleAdapter = new PeopleAdapter(peopleList);
+        mPeopleRecycler.setAdapter(peopleAdapter);
+
+
     }
 }
