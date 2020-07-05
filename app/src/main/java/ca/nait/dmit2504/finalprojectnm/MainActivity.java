@@ -36,11 +36,9 @@ public class MainActivity extends AppCompatActivity {
 
         mPeopleRecycler = findViewById(R.id.activity_main_recyclerview);
         //mPeopleRecycler.setHasFixedSize(true);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        mPeopleRecycler.setLayoutManager(linearLayoutManager);
+
         loadRecycler();
-        mPeopleRecycler.addOnItemTouchListener(new RecyclerView.SimpleOnItemTouchListener());
+
 
 
     }
@@ -52,6 +50,12 @@ public class MainActivity extends AppCompatActivity {
 
     }
     private void loadRecycler() {
+
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        mPeopleRecycler.setLayoutManager(linearLayoutManager);
+
+
         AppDatabase appDB = AppDatabase.getDatabase(getApplicationContext());
         List<People> peopleList = appDB.peopleDao().getAll();
 
