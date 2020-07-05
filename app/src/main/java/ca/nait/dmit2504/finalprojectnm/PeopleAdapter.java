@@ -61,10 +61,8 @@ public class PeopleAdapter extends RecyclerView.Adapter<PeopleAdapter.PersonView
 
             personID = itemView.findViewById(R.id.list_item_people_id);
             personFullName = itemView.findViewById(R.id.list_item_people_fullname);
-
         }
-
-
     }
+
 
 }
