@@ -15,7 +15,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-    private TextView mTextview;
+
     private RecyclerView mPeopleRecycler;
 
 
@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mTextview = findViewById(R.id.activity_main_textview);
+
         FloatingActionButton addNewFloatingButton = findViewById(R.id.floatingActionButton);
         addNewFloatingButton.setOnClickListener(new View.OnClickListener() {
             @Override

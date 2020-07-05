@@ -7,12 +7,6 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <TextView
-        android:id="@+id/activity_main_textview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!" />
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/activity_main_recyclerview"
         android:layout_width="match_parent"
