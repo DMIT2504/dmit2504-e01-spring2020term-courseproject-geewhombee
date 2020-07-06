@@ -28,29 +28,20 @@ public class NewPeopleActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //insert the data
-                String firstName = mFirstNameEdittext.getText().toString();
-                String lastName = mLastNameEdittext.getText().toString();
-                AppDatabase appDB = AppDatabase.getDatabase(getApplicationContext());
-                People person = new People(firstName,lastName);
-                long test = appDB.peopleDao().singlePersonInsert(person);
-                Toast.makeText(getApplicationContext(),test + "",Toast.LENGTH_SHORT).show();
+                if (mFirstNameEdittext.getText().toString().isEmpty()) {
+                    Toast.makeText(getApplicationContext(), "First Name cannot be empty!", Toast.LENGTH_SHORT).show();
+                } else if (mLastNameEdittext.getText().toString().isEmpty()) {
+                    Toast.makeText(getApplicationContext(), "Last Name cannot be empty!", Toast.LENGTH_SHORT).show();
+                } else {
+                    String firstName = mFirstNameEdittext.getText().toString();
+                    String lastName = mLastNameEdittext.getText().toString();
+                    AppDatabase appDB = AppDatabase.getDatabase(getApplicationContext());
+                    People person = new People(firstName,lastName);
+                    long test = appDB.peopleDao().singlePersonInsert(person);
+                    Toast.makeText(getApplicationContext(), "New Person added. Id: " + test + ". Name: " + person.getFullName() + ".",Toast.LENGTH_SHORT).show();
 
-                finish();
-
-//                Intent resultIntent = new Intent();
-//
-//                if (mFirstNameEdittext.getText().toString().isEmpty()) {
-//                    setResult(RESULT_CANCELED, resultIntent);
-//                } else {
-//                    String firstName = mFirstNameEdittext.getText().toString();
-//                    String lastName = mLastNameEdittext.getText().toString();
-//
-//                    resultIntent.putExtra(PEOPLE_firstName, firstName);
-//                    resultIntent.putExtra(PEOPLE_lastName, lastName);
-//                    setResult(RESULT_OK, resultIntent);
-//                }
-//
-//                finish();
+                    finish();
+                }
             }
         });
     }
