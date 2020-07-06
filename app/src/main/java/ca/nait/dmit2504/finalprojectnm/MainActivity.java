@@ -1,12 +1,19 @@
 package ca.nait.dmit2504.finalprojectnm;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Room;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
@@ -14,18 +21,30 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements SharedPreferences.OnSharedPreferenceChangeListener {
 
     private RecyclerView mPeopleRecycler;
     private PeopleAdapter.RecyclerViewClickListener listener;
     private List<People> peopleList;
 
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Create an instance of the Menu inflator
+        MenuInflater inflater = getMenuInflater();
+        // Inflate the menu
+        inflater.inflate(R.menu.options_menu, menu);
+        // Return true if the menu inflated OK
+        return true;
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
 
         FloatingActionButton addNewFloatingButton = findViewById(R.id.floatingActionButton);
         addNewFloatingButton.setOnClickListener(new View.OnClickListener() {
@@ -46,9 +65,25 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_item_preference:
+                Intent goToPreferenceIntent = new Intent(this, SettingsActivity.class);
+                startActivity(goToPreferenceIntent);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+
+
+    }
+
+    @Override
     protected void onResume() {
         super.onResume();
         loadRecycler();
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        prefs.unregisterOnSharedPreferenceChangeListener(this);
 
     }
     private void loadRecycler() {
@@ -80,6 +115,19 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         };
+    }
+
+    @Override
+    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        prefs.registerOnSharedPreferenceChangeListener(this);
+
     }
 
 }

@@ -20,6 +20,7 @@
         </activity>
         <activity android:name=".NewPeopleActivity"></activity>
         <activity android:name=".EditPeopleActivity"></activity>
+        <activity android:name=".SettingsActivity"></activity>
     </application>
 
 </manifest>
