@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -38,10 +39,18 @@ public class EditPeopleActivity extends AppCompatActivity {
         mUpdateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                person.firstName = mPersonFirstName.getText().toString();
-                person.lastName = mPersonLastName.getText().toString();
-                appDB.peopleDao().updatePerson(person);
-                finish();
+                if (mPersonFirstName.getText().toString().isEmpty()) {
+                    Toast.makeText(getApplicationContext(), "First Name cannot be empty!", Toast.LENGTH_SHORT).show();
+                } else if (mPersonLastName.getText().toString().isEmpty()) {
+                    Toast.makeText(getApplicationContext(), "Last Name cannot be empty!", Toast.LENGTH_SHORT).show();
+                } else {
+                    person.firstName = mPersonFirstName.getText().toString();
+                    person.lastName = mPersonLastName.getText().toString();
+                    appDB.peopleDao().updatePerson(person);
+                    Toast.makeText(getApplicationContext(), person.getFullName() + " has been updated!", Toast.LENGTH_SHORT).show();
+                    finish();
+                }
+
             }
         });
         mDeleteButton.setOnClickListener(new View.OnClickListener() {
