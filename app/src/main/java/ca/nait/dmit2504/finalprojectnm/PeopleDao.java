@@ -5,6 +5,7 @@ import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
+import androidx.room.Update;
 
 import java.util.List;
 
@@ -22,6 +23,8 @@ public interface PeopleDao {
 
     @Query("SELECT * FROM people WHERE uid LIKE :id")
     People findById(int id);
+    @Update
+    public void updatePerson(People people);
 
     @Insert
     void insertAll(People... people);

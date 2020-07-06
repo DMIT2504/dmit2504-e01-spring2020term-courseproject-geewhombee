@@ -11,15 +11,25 @@
         android:layout_height="wrap_content" />
 
     <EditText
-        android:id="@+id/activity_edit_people_fullname_textview"
+        android:id="@+id/activity_edit_people_firstname_textview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="text"
+        android:autofillHints=""
+        android:hint="@string/first_name"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/activity_edit_people_lastname_textview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="@string/last_name"
+        android:inputType="textPersonName"
         android:autofillHints="" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/activity_edit_people_update_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Button" />
+        android:text="@string/update" />
 </LinearLayout>
