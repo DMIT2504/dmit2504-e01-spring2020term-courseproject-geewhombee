@@ -20,6 +20,9 @@ public interface PeopleDao {
             "lastName LIKE :last LIMIT 1")
     People findByName(String first, String last);
 
+    @Query("SELECT * FROM people WHERE uid LIKE :id")
+    People findById(int id);
+
     @Insert
     void insertAll(People... people);
     @Insert(onConflict = OnConflictStrategy.REPLACE)

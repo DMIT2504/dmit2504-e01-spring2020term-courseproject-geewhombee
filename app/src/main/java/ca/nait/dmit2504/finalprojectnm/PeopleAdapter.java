@@ -16,9 +16,11 @@ import java.util.List;
 public class PeopleAdapter extends RecyclerView.Adapter<PeopleAdapter.PersonViewHolder> {
 
     private List<People> mPeople;
+    private RecyclerViewClickListener listener;
 
-    public PeopleAdapter(List<People> teamList) {
+    public PeopleAdapter(List<People> teamList, RecyclerViewClickListener listener) {
         mPeople = teamList;
+        this.listener = listener;
     }
 
     @NonNull
@@ -52,16 +54,24 @@ public class PeopleAdapter extends RecyclerView.Adapter<PeopleAdapter.PersonView
         return mPeople.size();
     }
 
-    public static class PersonViewHolder extends RecyclerView.ViewHolder {
+    public class PersonViewHolder extends RecyclerView.ViewHolder implements  View.OnClickListener {
         public TextView personID;
         public TextView personFullName;
 
         public PersonViewHolder(View itemView) {
             super(itemView);
-
             personID = itemView.findViewById(R.id.list_item_people_id);
             personFullName = itemView.findViewById(R.id.list_item_people_fullname);
+            itemView.setOnClickListener(this);
         }
+
+        @Override
+        public void onClick(View view) {
+            listener.onClick(view, getAdapterPosition());
+        }
+    }
+    public interface RecyclerViewClickListener {
+        void onClick(View v, int position);
     }
 
 
