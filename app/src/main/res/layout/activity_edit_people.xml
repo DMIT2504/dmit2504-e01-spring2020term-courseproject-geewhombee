@@ -27,9 +27,23 @@
         android:inputType="textPersonName"
         android:autofillHints="" />
 
-    <Button
-        android:id="@+id/activity_edit_people_update_button"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/update" />
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/activity_edit_people_update_button"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:text="@string/update" />
+
+        <Button
+            android:id="@+id/activity_edit_people_delete_button"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/delete" />
+
+    </LinearLayout>
+
 </LinearLayout>

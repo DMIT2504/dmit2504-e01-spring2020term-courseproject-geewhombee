@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class EditPeopleActivity extends AppCompatActivity {
     private Button mUpdateButton;
+    private Button mDeleteButton;
     private AppDatabase appDB;
     private People person;
     @Override
@@ -21,6 +22,8 @@ public class EditPeopleActivity extends AppCompatActivity {
         final EditText mPersonFirstName = findViewById(R.id.activity_edit_people_firstname_textview);
         final EditText mPersonLastName = findViewById(R.id.activity_edit_people_lastname_textview);
         mUpdateButton = findViewById(R.id.activity_edit_people_update_button);
+        mDeleteButton = findViewById(R.id.activity_edit_people_delete_button);
+
 
 
         Intent getIntent = getIntent();
@@ -41,6 +44,14 @@ public class EditPeopleActivity extends AppCompatActivity {
                 finish();
             }
         });
+        mDeleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                appDB.peopleDao().delete(person);
+                finish();
+            }
+        });
 
     }
+
 }
