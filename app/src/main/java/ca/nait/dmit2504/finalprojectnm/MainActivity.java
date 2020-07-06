@@ -2,6 +2,7 @@ package ca.nait.dmit2504.finalprojectnm;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Room;
@@ -26,6 +27,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
     private RecyclerView mPeopleRecycler;
     private PeopleAdapter.RecyclerViewClickListener listener;
     private List<People> peopleList;
+    private CoordinatorLayout mLayout;
 
 
     @Override
@@ -43,8 +45,13 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        mLayout = findViewById(R.id.activity_main_CoordinatorLayour);
+
 
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        androidx.preference.PreferenceManager.setDefaultValues(this,R.xml.root_preferences, false);
+
+        //mLayout.setBackgroundColor(Color.parseColor(prefs.getString("background_colour_pref", "White")));
 
         FloatingActionButton addNewFloatingButton = findViewById(R.id.floatingActionButton);
         addNewFloatingButton.setOnClickListener(new View.OnClickListener() {
@@ -84,6 +91,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         loadRecycler();
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         prefs.unregisterOnSharedPreferenceChangeListener(this);
+        mLayout.setBackgroundColor(Color.parseColor(prefs.getString("background_colour_pref", "WHITE")));
 
     }
     private void loadRecycler() {
@@ -120,6 +128,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        mLayout.setBackgroundColor(Color.parseColor(prefs.getString("background_colour_pref", "WHITE")));
     }
 
     @Override

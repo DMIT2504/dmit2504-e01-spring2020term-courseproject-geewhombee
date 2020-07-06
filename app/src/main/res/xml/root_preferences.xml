@@ -4,10 +4,9 @@
     <PreferenceCategory android:title="Colour options">
 
         <ListPreference
-            android:defaultValue="1"
             android:entries="@array/color_options"
             android:entryValues="@array/color_option_values"
-            android:key="list_preference_1"
+            android:key="background_colour_pref"
             android:title="Background Colour" />
     </PreferenceCategory>
 </PreferenceScreen>
