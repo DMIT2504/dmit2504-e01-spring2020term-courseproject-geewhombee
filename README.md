@@ -1,6 +1,7 @@
 # dmit2504-e01-spring2020term-courseproject-geewhombee
 dmit2504-e01-spring2020term-courseproject-geewhombee created by GitHub Classroom
 Simple Tutorial
+document makes more sense when viewing raw version
 ***
 Step 1: Add required dependencies to build.gradle.
   - https://developer.android.com/jetpack/androidx/releases/room
