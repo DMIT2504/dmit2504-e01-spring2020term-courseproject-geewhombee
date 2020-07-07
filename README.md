@@ -101,3 +101,121 @@ Step 3: Create the DAO Interface class
     List<Person> getAllPersonsByName(String name); //this method will also return a list, but will contain only objects whos name match the provided parameter "String name"
   }
   ******
+Step 4: Create the database
+  Create a new Java class called PersonDatabase
+  Make the class abstract and extend RoomDatabase
+  Normally, Android does not allow database access on the main thread. We can get around this restriction for the purpose of this tutorial
+  .allowMainThreatQueries() Allows database access on the main thread, this solution should be avoided, and will cause problems when dealing with complicated queries and large amounts of data.
+  
+  ******
+  public abstract class PersonDatabase extends RoomDatabase {
+  
+  }
+  ******
+  add the @Database annotation and additional code to the class.
+  It should look something like this.
+  ******
+  @Database(entities = {Person.class},version = 1, exportSchema = false)
+  public abstract class PersonDatabase extends RoomDatabase {
+
+    public abstract PersonDao personDao();
+
+    private static PersonDatabase personDatabase;
+
+    public static PersonDatabase getDatabase(Context context) {
+        if(personDatabase == null) {
+            synchronized (PersonDatabase.class) {
+                if (personDatabase == null) {
+                    personDatabase = Room.databaseBuilder(context.getApplicationContext(),
+                            PersonDatabase.class, "person_database")
+                            .allowMainThreadQueries() //Used for the purpose of this tutorial
+                            .fallbackToDestructiveMigration()
+                            .build();
+                }
+            }
+        }
+        return personDatabase;
+    }
+  }
+  ******
+Step 5: Using the database
+  After completing the previous steps, you are ready to use the database.
+  Build your own ui to test the database, or copy the code below to see an insert and query in action
+  
+  activity_main.xml
+  ******
+  <?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center|center_vertical"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+    <EditText
+        android:id="@+id/activity_main_add_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="add person name..."
+        android:inputType="textPersonName" />
+
+    <Button
+        android:id="@+id/activity_main_add_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add" />
+
+    <TextView
+        android:id="@+id/activity_main_list_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="database list text" />
+
+</LinearLayout>
+  ******
+  MainActivity.java
+  ******
+  public class MainActivity extends AppCompatActivity {
+    private TextView mTextview;
+    private Button mButton;
+    private EditText mEditText;
+    private List<Person> mList;
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        mEditText = findViewById(R.id.activity_main_add_textview);
+        mButton = findViewById(R.id.activity_main_add_button);
+        mTextview = findViewById(R.id.activity_main_list_textview);
+        loadTextView();
+
+
+
+        mButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String personName = mEditText.getText().toString();
+                Person person = new Person(personName);
+                PersonDatabase personDatabase = PersonDatabase.getDatabase(getApplicationContext());
+                personDatabase.personDao().insertPerson(person);
+                loadTextView();
+            }
+        });
+    }
+    private void loadTextView() {
+        PersonDatabase personDatabase = PersonDatabase.getDatabase(getApplicationContext());
+        mList = personDatabase.personDao().getPersonList();
+        String personListString = "";
+        for (Person person : mList
+             ) {
+            personListString += person.getId() + " " + person.getName() + "\n";
+        }
+        mTextview.setText(personListString);
+    }
+  }
+  ******
