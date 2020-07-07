@@ -48,5 +48,56 @@ Step 2: Create a the Entity class
   ******
   
   Now we will utilize the dependencies we added earlier.
+  Alter the code above using room annotations
   
-
+  ******
+  //@Entity annotation to tell room that this class is an entity in our database
+  @Entity(tableName = "person") //tableName will set the SQLite table name.
+  public class Person {
+    //@PrimaryKey annotation to tell room that this field is the tables primary key
+    @PrimaryKey(autoGenerate = true) //Set autoGenerate to true so that the primary key
+    private int id;
+    //@ColumnInfo is an option annotation. You can use this to set a custom column name.
+    //If you want to use the field
+    @ColumnInfo(name = "name")
+    private String name;
+    //NOTE: if using more than one constructor, use the @Ignore annotation on any constructor that we do not want room to use.
+    //room requires a constructor so that it can create and return these objects after a database query
+    public Person(int id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+    @Ignore
+    public Person(String name) {
+        this.name = name;
+    }
+    public int getId() { return id; }
+    public String getName() { return this.name; }
+  }
+  ******
+Step 3: Create the DAO Interface class
+  The Dao will be used to define methods that access our database.
+  @Dao will be used to annotate the interface
+  @Insert, @Update, @Delete, and @Query will be the annotations for methods.
+  Create a new interface class in your project.
+  ******
+  @Dao
+  public interface PersonDao {
+    //this method will insert the Person object that is passed when it is called.
+    //can use long instead of void to return the id after the object is inserted in the database
+    @Insert
+    void insertPerson(Person person);
+    //this method will update the Person object that is passed when it is called.
+    @Update
+    void updatePerson(Person person);
+    //this method will delete the Person object from the database that is passed when it is called.
+    @Delete
+    void deletePerson(Person person);
+    //@Query can be used to create custom database queries. Provide an SQLite statement in the parentheses.
+    //Android studio will let you know at compile time if these methods are causing issues. 
+    @Query("Select * from person")
+    List<Person> getPersonList(); //this method will return a list of all Person objects from our person table.
+    @Query("Select * from person Where name Like :name")
+    List<Person> getAllPersonsByName(String name); //this method will also return a list, but will contain only objects whos name match the provided parameter "String name"
+  }
+  ******
