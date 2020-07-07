@@ -5,6 +5,7 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.Ignore;
+import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
 import java.util.List;
@@ -15,7 +16,8 @@ import static androidx.room.ForeignKey.CASCADE;
         foreignKeys = @ForeignKey(entity = People.class,
                                     parentColumns = "uid",
                                     childColumns = "ownerId",
-                                    onDelete = CASCADE))
+                                    onDelete = CASCADE),
+        indices = {@Index("ownerId")})
 public class Pets {
     @PrimaryKey(autoGenerate = true)
     @NonNull

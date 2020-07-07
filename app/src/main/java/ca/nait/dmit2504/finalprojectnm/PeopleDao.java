@@ -33,4 +33,11 @@ public interface PeopleDao {
 
     @Delete
     void delete(People people);
+
+    //Pet queries
+    @Query("SELECT * FROM pets WHERE ownerId LIKE :id")
+    List<Pets> getPetsByOwnerId(int id);
+    @Query("SELECT * FROM pets")
+    List<Pets> getAllPets();
+
 }
