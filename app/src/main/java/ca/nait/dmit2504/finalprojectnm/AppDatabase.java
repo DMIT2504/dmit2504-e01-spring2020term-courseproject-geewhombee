@@ -6,7 +6,7 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
-@Database(entities = {People.class, Pets.class}, version = 7, exportSchema = false)//add exportSchema to stop a debug warning
+@Database(entities = {People.class, Pets.class}, version = 8, exportSchema = false)//add exportSchema to stop a debug warning
 public abstract class AppDatabase extends RoomDatabase {
 
     public abstract PeopleDao peopleDao();

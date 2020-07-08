@@ -20,10 +20,9 @@ import static androidx.room.ForeignKey.CASCADE;
         indices = {@Index("ownerId")})
 public class Pets {
     @PrimaryKey(autoGenerate = true)
-    @NonNull
     public int uid;
 
-    @NonNull
+
     @ColumnInfo(name = "petName")
     public String petName;
 
@@ -41,11 +40,11 @@ public class Pets {
         this.ownerId = ownerId;
     }
 
-    @NonNull
+
     public int getId() { return uid; }
-    @NonNull
+
     public String getPetName() { return this.petName; }
-    @NonNull
+
     public int getOwnerId() { return this.ownerId; }
 
 
