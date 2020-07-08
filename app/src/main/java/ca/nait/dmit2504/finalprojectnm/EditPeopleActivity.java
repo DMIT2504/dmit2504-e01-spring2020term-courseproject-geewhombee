@@ -14,12 +14,19 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.util.List;
+
 public class EditPeopleActivity extends AppCompatActivity implements SharedPreferences.OnSharedPreferenceChangeListener {
     private Button mUpdateButton;
     private Button mDeleteButton;
     private AppDatabase appDB;
     private People person;
     private LinearLayout mLayout;
+    private Button mAddPetButton;
+    private EditText mAddPetEditText;
+    private TextView mPetListTextview;
+    private Pets pets;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,6 +40,11 @@ public class EditPeopleActivity extends AppCompatActivity implements SharedPrefe
         final EditText mPersonLastName = findViewById(R.id.activity_edit_people_lastname_textview);
         mUpdateButton = findViewById(R.id.activity_edit_people_update_button);
         mDeleteButton = findViewById(R.id.activity_edit_people_delete_button);
+
+        mAddPetButton = findViewById(R.id.activity_edit_people_pets_add_button);
+        mAddPetEditText = findViewById(R.id.activity_edit_people_pets_name_edittext);
+        mPetListTextview = findViewById(R.id.activity_edit_people_pets_list_textview);
+
         mLayout = findViewById(R.id.activity_edit_people_layout);
         mLayout.setBackgroundColor(Color.parseColor(prefs.getString("background_colour_pref", "WHITE")));
 
@@ -72,6 +84,28 @@ public class EditPeopleActivity extends AppCompatActivity implements SharedPrefe
                 finish();
             }
         });
+        mAddPetButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String petName = mAddPetEditText.getText().toString();
+                int petOwnerId = person.getId();
+                Pets pets = new Pets(petName,petOwnerId);
+                appDB.peopleDao().singlePetInsert(pets);
+                loadPetTextviewList();
+            }
+        });
+        loadPetTextviewList();
+
+    }
+
+    private void loadPetTextviewList() {
+        List<Pets> petList = appDB.peopleDao().getPetsByOwnerId(person.getId());
+        String petsListString = "";
+        for (Pets pet : petList
+             ) {
+            petsListString += pet.petName + ", Owner Name = " + person.getFullName().toString() + "\n";
+        }
+        mPetListTextview.setText(petsListString);
 
     }
 

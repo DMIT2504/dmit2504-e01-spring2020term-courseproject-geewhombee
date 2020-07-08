@@ -6,6 +6,9 @@
     <string name="update">Update</string>
     <string name="delete">Delete</string>
     <string name="preferences">Preferences</string>
+    <string name="pets">Pets</string>
+    <string name="new_pet_name">New pet name...</string>
+    <string name="add_pet">Add Pet</string>
     <!--    <string name="first_name">First Name</string>-->
 <!--    <string name="last_name">Last Name</string>-->
 </resources>

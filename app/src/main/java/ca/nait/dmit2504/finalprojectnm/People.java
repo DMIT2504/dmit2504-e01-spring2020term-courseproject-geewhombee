@@ -11,14 +11,14 @@ import androidx.room.PrimaryKey;
 public class People {
 
     @PrimaryKey(autoGenerate = true)
-    @NonNull
+
     public int uid;
 
-    @NonNull
-    @ColumnInfo(name = "firstName")
+
+    //@ColumnInfo(name = "firstName")
     public String firstName;
 
-    @NonNull
+
     @ColumnInfo(name = "lastName")
     public String lastName;
 
@@ -33,12 +33,12 @@ public class People {
         this.lastName = lastName;
     }
 
-    @NonNull
+
     public int getId() { return uid; }
-    @NonNull
+
     public String getFirstName() { return this.firstName; }
-    @NonNull
+
     public String getLastName() { return this.lastName; }
-    @NonNull
+
     public String getFullName() { return  this.firstName + " " + this.lastName; }
 }

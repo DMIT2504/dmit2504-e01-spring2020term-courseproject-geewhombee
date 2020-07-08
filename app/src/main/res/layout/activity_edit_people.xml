@@ -48,4 +48,32 @@
 
     </LinearLayout>
 
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/pets"
+        android:textSize="24sp" />
+
+    <EditText
+        android:id="@+id/activity_edit_people_pets_name_edittext"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="@string/new_pet_name"
+        android:inputType="textPersonName"
+        android:autofillHints="" />
+
+    <Button
+        android:id="@+id/activity_edit_people_pets_add_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/add_pet" />
+
+    <TextView
+        android:id="@+id/activity_edit_people_pets_list_textview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:text="pets list" />
+
 </LinearLayout>

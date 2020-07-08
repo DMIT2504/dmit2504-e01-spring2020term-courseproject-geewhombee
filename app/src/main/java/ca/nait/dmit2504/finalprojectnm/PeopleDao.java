@@ -24,7 +24,7 @@ public interface PeopleDao {
     @Query("SELECT * FROM people WHERE uid LIKE :id")
     People findById(int id);
     @Update
-    public void updatePerson(People people);
+    void updatePerson(People people);
 
     @Insert
     void insertAll(People... people);
@@ -39,5 +39,7 @@ public interface PeopleDao {
     List<Pets> getPetsByOwnerId(int id);
     @Query("SELECT * FROM pets")
     List<Pets> getAllPets();
+    @Insert
+    void singlePetInsert(Pets pets);
 
 }

@@ -6,14 +6,14 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
-@Database(entities = {People.class, Pets.class}, version = 5, exportSchema = false)//add exportSchema to stop a debug warning
+@Database(entities = {People.class, Pets.class}, version = 7, exportSchema = false)//add exportSchema to stop a debug warning
 public abstract class AppDatabase extends RoomDatabase {
 
     public abstract PeopleDao peopleDao();
 
-    private static volatile AppDatabase appDatabase;
+    private static AppDatabase appDatabase;
     //
-    static AppDatabase getDatabase(final Context context) {
+    static AppDatabase getDatabase(Context context) {
         if (appDatabase == null) {
             synchronized (AppDatabase.class) {
                 if (appDatabase == null) {
